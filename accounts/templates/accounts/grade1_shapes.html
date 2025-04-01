@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes - Grade 1</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f4faff;
+            text-align: center;
+        }
+        .header {
+            background-color: #ffcc00;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .content {
+            margin-top: 50px;
+            font-size: 20px;
+        }
+        .back-button {
+            margin-top: 30px;
+            background: #ffcc00;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+        .back-button:hover {
+            background: #ff9900;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">🔵 Shapes Learning</div>
+
+    <div class="content">
+        <p>Start your Assessment.</p>
+        <button onclick="startAssessment()">Start Hand Assessment</button>
+    </div>
+
+    <button class="back-button" onclick="window.location.href='/accounts/learn/grade1/'">🔙 Back to Grade 1</button>
+
+
+    <script>
+        function startAssessment() {
+            fetch("/accounts/grade1_shapes/").then(response => {
+                alert("Hand Gesture Recognition Started!");
+            });
+        }
+    </script>
+
+</body>
+</html>

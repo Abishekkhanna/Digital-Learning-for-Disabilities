@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Grade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(to right, #007bff, #0056b3);
+            padding: 20px;
+            font-size: 26px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        .grade-box {
+            width: 220px;
+            height: 220px;
+            background: white;
+            color: #007bff;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            margin: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #007bff;
+            position: relative;
+            overflow: hidden;
+        }
+        .grade-box:hover {
+            background: #007bff;
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .grade-box i {
+            font-size: 50px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+        .grade-box:hover i {
+            transform: scale(1.1);
+        }
+        .back-button {
+            margin-top: 40px;
+            background: #007bff;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .back-button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        .pp{
+            font-size: 16px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">📚 Select Your Grade</div>
+
+    <div class="container">
+        <div class="grade-box" onclick="window.location.href='/accounts/learn/grade1/'">
+            <i class="fas fa-star"></i> Grade 1
+            <p class="pp">Alphabets, Numbers, Assessment</p>
+        </div>
+        <!-- <div class="grade-box" onclick="window.location.href='/accounts/learn/grade2/'">
+            <i class="fas fa-lightbulb"></i> Grade 2
+        </div>
+        <div class="grade-box" onclick="window.location.href='/accounts/learn/grade3/'">
+            <i class="fas fa-pencil-alt"></i> Grade 3
+        </div> -->
+        <div class="grade-box" onclick="window.location.href='/accounts/learn/grade4/'">
+            <i class="fas fa-book-open"></i> Grade 2
+            <p class="pp">Quiz using Hand Guesture</p>
+        </div>
+        <div class="grade-box" onclick="window.location.href='/accounts/learn/grade5/'">
+            <i class="fas fa-graduation-cap"></i> Grade 3
+            <p class="pp">Global Map - 3D</p>
+        </div>
+    </div>
+
+    <button class="back-button" onclick="window.location.href='/accounts/dashboard/'">🔙 Back to Dashboard</button>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Shoot Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f4faff;
+            overflow: hidden;
+        }
+        .game-container {
+            position: relative;
+            margin: auto;
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .basket {
+            width: 200px;
+            height: 200px;
+            background: url('https://static.vecteezy.com/system/resources/previews/024/090/377/non_2x/basketball-sport-basket-free-png.png') no-repeat center;
+            background-size: contain;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+            padding-top: 50px;
+            margin-top: 20px;
+        }
+        .score-container {
+            position: absolute;
+            top: 10px;
+            left: 800px;
+            width: 120px;
+            min-height: 150px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 10px;
+        }
+        .ball {
+            width: 50px;
+            height: 50px;
+            background: url('https://cdn.pixabay.com/photo/2022/11/20/14/35/basketball-7604449_960_720.png') no-repeat center;
+            background-size: contain;
+            cursor: grab;
+            margin: 10px;
+            margin-top: 150px;
+            display: inline-block;
+        }
+        .hidden {
+            display: none;
+        }
+        .minimized-ball {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            animation: wavyMove 1s ease-in-out;
+        }
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 30px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏀 Basketball Shoot Challenge </h1>
+    <p>Drag and drop the basketballs into the hoop in order to learn counting!</p>
+    <div class="game-container">
+        <div id="basket" class="basket" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="score" class="score-container"> Score <span id="scoreCount">0</span></div>
+    </div>
+    <div id="balls">
+        <div class="ball" id="ball1" draggable="true" ondragstart="drag(event)"></div>
+        <div class="ball" id="ball2" draggable="true" ondragstart="drag(event)"></div>
+        <div class="ball" id="ball3" draggable="true" ondragstart="drag(event)"></div>
+        <div class="ball" id="ball4" draggable="true" ondragstart="drag(event)"></div>
+        <div class="ball" id="ball5" draggable="true" ondragstart="drag(event)"></div>
+    </div>
+    <h3 id="explanation"></h3>
+    <div id="celebration" class="celebration">
+        🎉 Congratulations! You've completed the challenge! 🎉
+    </div>
+    <script>
+        let count = 0;
+        document.getElementById("celebration").style.display = "none";
+        const jsConfetti = new JSConfetti();
+       
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+        function drop(event) {
+            event.preventDefault();
+            let ballId = event.dataTransfer.getData("text");
+            let ballElement = document.getElementById(ballId);
+            let basket = document.getElementById("basket");
+            let scoreContainer = document.getElementById("score");
+            let scoreCount = document.getElementById("scoreCount");
+            let explanation = document.getElementById("explanation");
+           
+            if (ballElement && ballElement.id === `ball${count + 1}`) {
+                let ballClone = ballElement.cloneNode(true);
+                ballClone.classList.add("minimized-ball");
+                document.body.appendChild(ballClone);
+                ballElement.classList.add("hidden");
+               
+                let basketRect = basket.getBoundingClientRect();
+                let scoreRect = scoreContainer.getBoundingClientRect();
+                ballClone.style.left = basketRect.left + "px";
+                ballClone.style.top = basketRect.top + "px";
+                setTimeout(() => {
+                    ballClone.style.left = scoreRect.left + "px";
+                    ballClone.style.top = scoreRect.top + "px";
+                    setTimeout(() => {
+                        scoreContainer.appendChild(ballClone);
+                        count++;
+                        scoreCount.innerText = count;
+                        explanation.innerHTML = count > 1 ? `<h2>Learn<h5><h4>${count-1} ball(s) thrown. Now throw 1 more to make it ${count}.</h4>` : "First ball is thrown";
+                        if (count === 5) triggerCelebration();
+                    }, 1000);
+                }, 100);
+            } else {
+                alert("You must throw the balls in order! Try again.");
+            }
+        }
+        function triggerCelebration() {
+            document.getElementById("celebration").style.display = "flex";
+            jsConfetti.addConfetti();
+        }
+    </script>
+</body>
+</html>
+

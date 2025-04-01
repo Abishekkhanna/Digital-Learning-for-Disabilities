@@ -1,0 +1,12 @@
+# Ignore Virtual Environment
+myenv/
+
+# Ignore Python Bytecode
+__pycache__/
+
+# Ignore Large Dependency Files
+*.pyd
+*.dll
+*.lib
+*.h5
+*.pkl

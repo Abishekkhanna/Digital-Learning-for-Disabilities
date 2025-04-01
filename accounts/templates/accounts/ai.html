@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #F4F7FC;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+
+        .phone-container {
+            background: black;
+            width: 400px;
+            height: 700px;
+            border-radius: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .screen {
+            width: 95%;
+            height: 90%;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .chat-header {
+            background: #007BFF;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+
+
+        }
+
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #E3F2FD;
+        }
+
+
+        .message-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+
+
+        .user-message {
+            background-color: #FFEB3B;
+            text-align: right;
+            border-radius: 8px 8px 0 8px;
+            align-self: flex-end;
+        }
+
+
+        .bot-message {
+            background-color: #FFFFFF;
+            border-radius: 8px 8px 8px 0;
+            text-align: left;
+        }
+
+
+        .chat-input {
+            padding: 15px;
+            display: flex;
+            background: white;
+            border-top: 1px solid #CCCCCC;
+        }
+
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+
+        .phone-notch {
+            width: 50px;
+            height: 10px;
+            background: black;
+            position: absolute;
+            top: 5px;
+            border-radius: 5px;
+        }
+
+
+        .bottom-button {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #53565e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            height: 50px;
+            width: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border: none;
+        }
+
+
+        .bottom-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-notch"></div>
+        <div class="screen">
+            <div class="chat-header"><svg style="background-color: white; border-radius:50%;" width="60px" height="60px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.48 4h4l.5.5v2.03h.52l.5.5V8l-.5.5h-.52v3l-.5.5H9.36l-2.5 2.76L6 14.4V12H3.5l-.5-.64V8.5h-.5L2 8v-.97l.5-.5H3V4.36L3.53 4h4V2.86A1 1 0 0 1 7 2a1 1 0 0 1 2 0 1 1 0 0 1-.52.83V4zM12 8V5H4v5.86l2.5.14H7v2.19l1.8-2.04.35-.15H12V8zm-2.12.51a2.71 2.71 0 0 1-1.37.74v-.01a2.71 2.71 0 0 1-2.42-.74l-.7.71c.34.34.745.608 1.19.79.45.188.932.286 1.42.29a3.7 3.7 0 0 0 2.58-1.07l-.7-.71zM6.49 6.5h-1v1h1v-1zm3 0h1v1h-1v-1z"/></svg> AI Tutor Chat</div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Ask me anything..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <button class="bottom-button" onclick="resetChat()"></button>
+    </div>
+</body>
+</html>
+
+
+   <script>
+  const API_KEY = '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';
+  const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+   
+        let conversationHistory = [
+            {
+                role: "system",
+                content: "You are an AI tutor designed to help students with their studies. Provide clear, educational, and friendly responses to assist in learning. Always explain concepts in a simple and engaging way.when a conversation starts with greeeting and some motivational quote,consise output"
+            }
+        ];
+   
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (!message) return;
+   
+            addMessageToChat(message, 'user-message');
+            userInput.value = '';
+   
+            conversationHistory.push({ role: 'user', content: message });
+   
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'HTTP-Referer': window.location.href,
+                        'X-Title': 'AI Tutor Chat'
+                    },
+                    body: JSON.stringify({
+                        model: 'openai/gpt-3.5-turbo', // Faster model
+                        messages: conversationHistory,
+                        temperature: 0.5,  // More stable
+                        max_tokens: 400    // Faster response
+                    })
+                });
+   
+                const data = await response.json();
+                if (data.choices && data.choices[0].message) {
+                    const botResponse = data.choices[0].message.content;
+                    conversationHistory.push({ role: 'assistant', content: botResponse });
+                    addTypingAnimation(botResponse, 'bot-message', 10); // Faster typing
+                } else {
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessageToChat('Sorry, I encountered an error. Please try again.', 'bot-message');
+            }
+        }
+   
+        function addMessageToChat(message, className) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message-container';
+   
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            messageDiv.textContent = message;
+   
+            messageContainer.appendChild(messageDiv);
+            chatMessages.appendChild(messageContainer);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+   
+        function addTypingAnimation(text, className, speed = 1000) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message-container';
+   
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            messageContainer.appendChild(messageDiv);
+            chatMessages.appendChild(messageContainer);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+   
+            let index = 0;
+            function typeEffect() {
+                if (index < text.length) {
+                    messageDiv.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeEffect, speed);
+                }
+            }
+            typeEffect();
+        }
+   
+        document.getElementById('user-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        function resetChat() {
+            document.getElementById('chat-messages').innerHTML = '';
+        }
+    </script>
+   
+</body>
+</html>  
+

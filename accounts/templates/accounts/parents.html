@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Progress Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #4a90e2, #0057b8);
+            gap: 20px;
+            padding: 20px;
+            margin: 0;
+            color: #333;
+        }
+        .role-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            color: #0057b8;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .role-tag img {
+            height: 30px;
+            width: 30px;
+        }
+        h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .progress-container {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .progress-container:hover {
+            transform: scale(1.05);
+        }
+        .progress-box {
+            margin-bottom: 20px;
+        }
+        .progress-label {
+            font-weight: bold;
+            font-size: 18px;
+            color: #0057b8;
+            margin-bottom: 5px;
+        }
+        .progress-bar {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 25px;
+            background: #0057b8;
+            text-align: center;
+            color: white;
+            line-height: 25px;
+            font-weight: bold;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+        .priority-section {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .priority-section:hover {
+            transform: scale(1.05);
+        }
+        .subject-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #0057b8;
+        }
+        .notify-btn {
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #0057b8;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .notify-btn:hover {
+            background: #003b7a;
+            transform: scale(1.05);
+        }
+        .image-container img {
+            width: 280px;
+            height: auto;
+        }
+        select {
+            background-color: #4a90e2;
+            border: none;
+            padding: 5px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+        select:hover {
+            background: #0057b8;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <h1>📊 Student Progress Overview</h1>
+
+
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-box">
+                <div class="progress-label">Math 📐</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%">75%</div>
+                </div>
+            </div>
+            <div class="progress-box">
+                <div class="progress-label">Science 🧪</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%">50%</div>
+                </div>
+            </div>
+            <div class="progress-box">
+                <div class="progress-label">History 📜</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 30%">30%</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="image-container">
+            <img src="https://cdni.iconscout.com/illustration/premium/thumb/disabled-woman-in-wheelchair-working-at-office-illustration-download-svg-png-gif-file-formats--lady-sitting-people-pack-illustrations-4459918.png?f=webp" alt="Child learning">
+        </div>
+
+
+        <div class="progress-container">
+            <div class="progress-box">
+                <div class="progress-label">English 📖</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%">85%</div>
+                </div>
+            </div>
+            <div class="progress-box">
+                <div class="progress-label">Geography 🌍</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 40%">40%</div>
+                </div>
+            </div>
+            <div class="progress-box">
+                <div class="progress-label">Art 🎨</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%">60%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <hr style="width: 80%; border: 1px solid #0057b8;">
+
+
+    <div class="priority-section">
+        <h3>📌 Set Study Priority</h3>
+        <div class="subject-item">
+            <span>Math 📐</span>
+            <select>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+            </select>
+        </div>
+        <div class="subject-item">
+            <span>Science 🧪</span>
+            <select>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+            </select>
+        </div>
+        <div class="subject-item">
+            <span>History 📜</span>
+            <select>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+            </select>
+        </div>
+        <button class="notify-btn" onclick="sendNotification()">Set Priority</button>
+    </div>
+
+
+    <script>
+        function sendNotification() {
+            alert("✅ Study priority set! The student will be notified.");
+        }
+    </script>
+</body>
+</html>
+
+
+

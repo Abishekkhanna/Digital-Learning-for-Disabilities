@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #F4F7FC;
+            text-align: center;
+            color: #333;
+        }
+
+        .header {
+            background: #007BFF;            
+            padding: 8px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        #quote{
+            font-weight: bolder;
+            /* width: 300px; */
+        }
+
+        .profile {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            padding-top: 40px;
+            text-align: center;
+            width: 400px;
+        }
+
+        .profile img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4A90E2;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .module {
+            width: 220px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .module:hover {
+            background: #4A90E2;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .footer {
+            background: #ffffff;
+            color: #333;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">🎓 Welcome, Alice!</div><br><br>
+    <div id="quote-box">
+        <h2>Quote of the Day</h2>
+        <p id="quote">Loading...</p>
+        <p id="author"></p>
+    </div>
+    <div class="main-content">
+        <div class="profile">
+            <img src="https://static.sadhguru.org/d/46272/1635531387-1635531386358.jpg" alt="Profile Picture">
+            <p><strong>Name:</strong> Alice</p>
+            <p><strong>Email:</strong> alice@gmail.com</p>
+        </div>
+
+        <div class="container">
+            <div class="module" onclick="window.location.href='/accounts/learn/'">🎮<br/>Play & Learn</div>
+            <div class="module" onclick="window.location.href='/accounts/progress/'">📊<br/>Progress Report</div>
+            <div class="module" onclick="window.location.href='/accounts/parent/'">👨‍👩‍👧<br/>Parent/Teacher Access</div>
+            <div class="module" onclick="window.location.href='/accounts/daily/'">🔔<br/>Daily Challenge</div>
+            <div class="module" onclick="window.location.href='/accounts/ai/'">🧩<br/>Adaptive Learning</div>
+            <div class="module" onclick="window.location.href='/accounts/breakk/'">💪<br/>Barrier Breaking Individuals</div>
+        </div>
+    </div>
+    <footer class="footer">© 2025 Next-Gen Digital Education</footer>
+
+<script>
+    async function fetchQuote() {
+        const apiUrl = "https://api.api-ninjas.com/v1/quotes";
+        const apiKey = "1I2LYjsAkEdvTTh76BKV1A==RanbnxRaj8WR1yYa";
+        
+        try {
+            const response = await fetch(apiUrl, {
+                headers: { 'X-Api-Key': apiKey }
+            });
+            const data = await response.json();
+            if (data.length > 0) {
+                document.getElementById("quote").textContent = `"${data[0].quote}"`;
+                document.getElementById("author").textContent = `- ${data[0].author}`;
+            }
+        } catch (error) {
+            console.error("Error fetching quote:", error);
+        }
+    }
+    
+    window.onload = fetchQuote;
+</script>
+</body>
+</html>

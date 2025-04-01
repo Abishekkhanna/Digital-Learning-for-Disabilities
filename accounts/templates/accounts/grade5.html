@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive World Map</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F4F7FC;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #007BFF;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        #chartdiv {
+            margin-top: 30px;
+            width: 80%;
+            height: 550px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <header>LEARN WITH GLOBE</header>
+    <div id="chartdiv"></div>
+
+    <!-- Importing amCharts for World Map -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    
+    <script>
+        am5.ready(function() {
+            var root = am5.Root.new("chartdiv");
+            root._logo.dispose();
+            root.setThemes([am5themes_Animated.new(root)]);
+            var chart = root.container.children.push(am5map.MapChart.new(root, {
+                panX: "rotateX",
+                panY: "rotateY",
+                projection: am5map.geoOrthographic()
+            }));
+            var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+                geoJSON: am5geodata_worldLow,
+                exclude: ["AQ"]
+            }));
+            polygonSeries.mapPolygons.template.setAll({
+                tooltipText: "{name}",
+                interactive: true,
+                fill: am5.color(0x74b9ff)
+            });
+        });
+    </script>
+
+    <!-- Run Hand Gesture Control Script -->
+    <script>
+        fetch('hand_control.py')
+        .then(response => response.text())
+        .then(script => eval(script));
+    </script>
+</body>
+</html>

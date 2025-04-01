@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Login Type</title>
+</head>
+<body>
+    <h2>Choose Login Type</h2>
+    <ul>
+        <li><a href="{% url 'blind_login' %}">Blind Student Login (Voice)</a></li>
+        <li><a href="{% url 'mute_login' %}">Mute Student Login (Secret Code)</a></li>
+        <li><a href="{% url 'regular_login' %}">Deaf & Physically Disabled Login (Username & Password)</a></li>
+    </ul>
+</body>
+</html>

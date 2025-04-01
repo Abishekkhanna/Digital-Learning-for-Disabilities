@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspiration Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e3f2fd;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            margin-left: 40px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            width: 320px;
+            text-align: left;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 15px;
+            height: auto;
+        }
+        .card h3 {
+            margin-top: 10px;
+            color: #1565c0;
+        }
+        .card p {
+            color: #444;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #0d47a1;">Barrier-breaking individual
+    </h1>
+    <div class="container" id="inspiration-cards"></div>
+
+
+    <script>
+        const people = [
+            { name: "Stephen Hawking", img: "https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/05/01/21/stephen-hawking.jpg?quality=75&width=1250&crop=3%3A2%2Csmart&auto=webp", bio: "Diagnosed with ALS at 21, Stephen Hawking overcame paralysis to become one of the greatest theoretical physicists. He revolutionized our understanding of black holes, authored bestsellers like 'A Brief History of Time,' and continued his work using a speech-generating device, inspiring millions worldwide." },
+            { name: "Helen Keller", img: "https://ialabs.ie/wp-content/uploads/2023/06/GettyImages-635752305-e1610538598206-copy-48e2.jpg", bio: "Deaf and blind since infancy due to illness, Helen Keller learned to communicate through touch and became the first deaf-blind graduate. She became a global advocate for disability rights, wrote multiple books, and inspired generations with her achievements in education and activism." },
+            { name: "Nick Vujicic", img: "https://cdn.churchleaders.com/wp-content/uploads/2023/07/Nick-Vujicic.png", bio: "Born with Tetra-Amelia syndrome, Nick Vujicic had no arms or legs, yet he built a global motivational speaking career. He founded 'Life Without Limbs,' authored inspirational books, and continues to empower people worldwide with his message of resilience and faith." },
+            { name: "Frida Kahlo", img: "https://cdn.kpbs.org/dims4/default/79d6229/2147483647/strip/true/crop/1400x862+0+0/resize/1760x1084!/format/webp/quality/90/?url=http%3A%2F%2Fkpbs-brightspot.s3.us-west-2.amazonaws.com%2F96%2Fbe%2F03cdb3fa4532931e61b980fec30e%2Fbecoming-frida-kahlo-ep2-01.jpg", bio: "Mexican painter Frida Kahlo battled polio as a child and survived a devastating accident that caused lifelong pain. Despite her disabilities, she created iconic, deeply personal artworks that made her an influential feminist and artistic figure in history." },
+            { name: "Marlee Matlin", img: "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202501/marlee-matlin-240047182-16x9_0.jpg?VersionId=6uQg7CQuiJyvZn8WKUTGFlpFlVcu5qqZ", bio: "Marlee Matlin lost her hearing at 18 months but defied expectations to become the first deaf actress to win an Academy Award. She has since advocated for deaf rights and accessibility while building a successful Hollywood career." },
+            { name: "Tanni Grey-Thompson", img: "https://i.dailymail.co.uk/i/pix/2017/09/26/00/13BCFD8100000514-4919476-image-a-196_1506382557444.jpg", bio: "Born with spina bifida and using a wheelchair, Tanni Grey-Thompson became one of the greatest Paralympians, winning 11 gold medals in wheelchair racing. She later transitioned into politics, championing disability rights and accessibility initiatives." },
+            { name: "Temple Grandin", img: "https://i.ytimg.com/vi/MvWKKDG55YA/maxresdefault.jpg", bio: "Diagnosed with autism as a child, Temple Grandin overcame social barriers to become a leading professor in animal science. She revolutionized livestock handling methods and became an advocate for autism awareness, inspiring many through her books and lectures." },
+            { name: "Sudha Chandran", img: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Erik_in_Colorado.jpg", bio: "Sudha Chandran, a celebrated Indian dancer and actress, lost her leg in an accident but refused to let it define her. With a prosthetic limb, she returned to Bharatanatyam and became an acclaimed performer, proving that passion and determination can overcome any challenge. She continues to inspire as an artist and motivational speaker, encouraging others to pursue their dreams fearlessly." },
+            { name: "Erik Weihenmayer", img: "https://governancenow.com/temp/sudha_chandran.jpg", bio: "Blind since age 13 due to a rare eye disease, Erik Weihenmayer defied limitations by becoming the first blind person to summit Mount Everest. He continues to push boundaries through extreme sports and motivational speaking, proving that obstacles are meant to be conquered." }
+        ];
+
+
+        const container = document.getElementById("inspiration-cards");
+        people.forEach(person => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `<img src="${person.img}" alt="${person.name}"><h3>${person.name}</h3><p>${person.bio}</p>`;
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
+
+
+

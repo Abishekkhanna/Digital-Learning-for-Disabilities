@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blind Student Login</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffebcc;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 50px;
+        }
+        button {
+            font-size: 18px;
+            color: white;
+            background: #ff9933;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff6600;
+        }
+        p {
+            color: red;
+        }
+    </style>
+    <script>
+        function playBeep() {
+            const beep = new Audio("https://drive.google.com/file/d/1PllxjWIytS3yrFQjAeo5KX2wSRsYMfv_/view?usp=sharing"); // Directly reference the file in the same directory
+            beep.play();
+            beep.onended = startListening; // Start listening after beep finishes
+        }
+    
+        function startListening() {
+            document.getElementById("speakButton").click(); // Auto-submit form
+        }
+    
+        // Speak instructions and play beep after speaking
+        window.onload = function() {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance("After the beep, say your password.");
+            synth.speak(utterance);
+    
+            // Play beep after speech ends
+            utterance.onend = function() {
+                setTimeout(playBeep, 500); // Small delay before beep
+            };
+        };
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Blind Student Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" id="speakButton">Speak Password</button>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

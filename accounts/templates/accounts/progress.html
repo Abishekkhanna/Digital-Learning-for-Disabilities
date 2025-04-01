@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+   
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        body {
+            background: #F4F7FC;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+
+        .container {
+            background: #007bff68;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+            max-width: 900px;
+            margin: auto;
+        }
+
+
+        #chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+
+        .chart {
+            width: 100%;
+            height: 500px;
+            background-color: #F4F7FC;
+            border-radius: 12px;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+
+        .chart:hover {
+            transform: scale(1.02);
+        }
+
+
+        b {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+    </style>
+   
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+</head>
+<body>
+
+
+<h1>Progress Dashboard</h1>
+
+
+<div class="container">
+    <div id="chart-container">
+        <div id="pieChart" class="chart" title="Performance"></div>
+        <div id="barChart" class="chart"></div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('barChart').onmouseover = () => {
+        document.body.style.overflow = "hidden";
+    };
+    document.getElementById('barChart').onmouseleave = () => {
+        document.body.style.overflow = "";
+    };
+
+
+    am5.ready(function() {
+        var rootPie = am5.Root.new("pieChart");
+        rootPie.setThemes([am5themes_Animated.new(rootPie)]);
+       
+        var chartPie = rootPie.container.children.push(am5percent.PieChart.new(rootPie, {
+            layout: rootPie.verticalLayout
+        }));
+        rootPie._logo.dispose();  
+        var seriesPie = chartPie.series.push(am5percent.PieSeries.new(rootPie, {
+            valueField: "value",
+            categoryField: "category"
+        }));
+        seriesPie.data.setAll([
+            { value: 40, category: "Maths" },
+            { value: 30, category: "English" },
+            { value: 15, category: "Science" },
+            { value: 10, category: "Social" },
+            { value: 5, category: "GK" }
+        ]);
+
+
+        seriesPie.appear(1000, 100);
+       
+        var rootBar = am5.Root.new("barChart");
+        rootBar.setThemes([am5themes_Animated.new(rootBar)]);
+       
+        var chartBar = rootBar.container.children.push(am5xy.XYChart.new(rootBar, {
+            panX: true,
+            panY: true,
+            wheelX: "panX",
+            wheelY: "zoomX",
+            pinchZoomX: true
+        }));
+        rootBar._logo.dispose();  
+
+
+        var xAxis = chartBar.xAxes.push(am5xy.CategoryAxis.new(rootBar, {
+            categoryField: "day",
+            renderer: am5xy.AxisRendererX.new(rootBar, { minGridDistance: 30 })
+        }));
+        xAxis.get("renderer").labels.template.setAll({ rotation: -45, centerY: am5.p50, centerX: am5.p100 });
+
+
+        var yAxis = chartBar.yAxes.push(am5xy.ValueAxis.new(rootBar, {
+            renderer: am5xy.AxisRendererY.new(rootBar, {})
+        }));
+
+
+        var seriesBar = chartBar.series.push(am5xy.ColumnSeries.new(rootBar, {
+            name: "Minutes",
+            xAxis: xAxis,
+            yAxis: yAxis,
+            valueYField: "minutes",
+            categoryXField: "day"
+        }));
+
+
+        seriesBar.columns.template.setAll({
+            tooltipText: "{categoryX}: {valueY} min",
+            width: am5.percent(70),
+            fillOpacity: 0.9,
+            cornerRadiusTopLeft: 6,
+            cornerRadiusTopRight: 6
+        });
+
+
+        seriesBar.columns.template.set("depth", 65);
+
+
+        var dataBar = [
+            { day: "Monday", minutes: 120 },
+            { day: "Tuesday", minutes: 90 },
+            { day: "Wednesday", minutes: 150 },
+            { day: "Thursday", minutes: 80 },
+            { day: "Friday", minutes: 200 },
+            { day: "Saturday", minutes: 250 },
+            { day: "Sunday", minutes: 180 }
+        ];
+
+
+        xAxis.data.setAll(dataBar);
+        seriesBar.data.setAll(dataBar);
+    });
+</script>
+
+
+</body>
+</html>
+
+
+
